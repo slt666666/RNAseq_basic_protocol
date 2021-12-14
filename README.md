@@ -61,17 +61,17 @@ fastp -i pair1.fq -I pair2.fq -3 -o out_pair1.fq.gz -O out_pair2.fq.gz -h report
 ターミナルで直接動かさず、bashスクリプトに記述する場合は以下の様に改行して見やすくできる。
 ~~~
 fastp \
-	-i pair1.fq.gz \
-	-I pair2.fq.gz \
-	-3 \
- 	-o out_pair1.fq.gz \
- 	-O out_pair2.fq.gz \
- 	-h report.html \
- 	-q 15 \
- 	-n 10 \
- 	-t 1 \
- 	-T 1 \
- 	-l 20 \
+    -i pair1.fq.gz \
+    -I pair2.fq.gz \
+    -3 \
+    -o out_pair1.fq.gz \
+    -O out_pair2.fq.gz \
+    -h report.html \
+    -q 15 \
+    -n 10 \
+    -t 1 \
+    -T 1 \
+    -l 20 \
 ~~~
 
 * FaQCsを使うのであれば
@@ -102,10 +102,10 @@ hisat2_extract_splice_sites.py Niben.genome.v0.4.4.gene_models.gtf > Niben044_ss
 ### 2.3 リファレンスゲノムのindexファイルを作成(ゲノムサイズによっては死ぬほど時間がかかる)
 ~~~
 hisat2-build \
-	--ss Niben044_ss.txt \
-	--exon Niben044_exon.txt \
-	Niben.genome.v0.4.4.scaffolds.nrcontigs.fasta \
-	Niben044_index
+    --ss Niben044_ss.txt \
+    --exon Niben044_exon.txt \
+    Niben.genome.v0.4.4.scaffolds.nrcontigs.fasta \
+    Niben044_index
 ~~~
 
 ### 2.4 マッピング
@@ -117,7 +117,7 @@ hisat2 \
     -x Niben044_index \
     -1 out_pair1.fq.gz \
     -2 out_pair2.fq.gz \
-	-S out.sam
+    -S out.sam
 ~~~
 
 ### 2.5 samファイル(はサイズがデカいので)をbamファイルに変換
@@ -134,7 +134,7 @@ hisat2 \
     --no-discordant \
     -x Niben044_index \
     -1 out_pair1.fq.gz \
-	-2 out_pair2.fq.gz | samtools view -F 004 -bS - > out.bam
+    -2 out_pair2.fq.gz | samtools view -F 004 -bS - > out.bam
 ~~~
 
 ### 2.6 bamファイルをソート & index作成(他のプログラム(featureCountsとか)を使うために必要)
@@ -146,12 +146,12 @@ samtools index out.sort.bam
 ## 3. 遺伝子毎などの単位でread count 
 ~~~
 featureCounts \
-	-p \
-	-t exon \
-	-g gene_id \
-	-a Niben.genome.v0.4.4.gene_models.gtf \
+    -p \
+    -t exon \
+    -g gene_id \
+    -a Niben.genome.v0.4.4.gene_models.gtf \
     -o read_count.txt \
-	out.sort.bam
+    out.sort.bam
 ~~~
 
 ## 4. TPMやFPKM等の計算、DEG解析など
